@@ -30,17 +30,17 @@ export default function ImageMasonry({ data, onScroll }: { onScroll: () => void,
     img: `${process.env.REACT_APP_IMAGE_SERVER_URL!}${p.image_path}`
   }));
 
-  const scrollListener = () => {
-    if (
-      document.scrollingElement &&
-      document.scrollingElement.scrollTop + document.scrollingElement.clientHeight >=
-      document.scrollingElement.scrollHeight
-    ) {
-      onScroll();
-    }
-  }
-
+  
   useEffect(() => {
+    const scrollListener = () => {
+      if (
+        document.scrollingElement &&
+        document.scrollingElement.scrollTop + document.scrollingElement.clientHeight >=
+        document.scrollingElement.scrollHeight
+      ) {
+        onScroll();
+      }
+    }
     if (masonryRef.current) {
       window.addEventListener("scroll", scrollListener);
     }
