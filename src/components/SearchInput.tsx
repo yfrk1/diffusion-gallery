@@ -74,7 +74,7 @@ export default function SearchInput({ query, onEnter }: { query: string, onEnter
       ))
     }
     renderInput={(params) => (
-      <Search sx={{ minWidth: '300px' }}>
+      <Search sx={{ width: '100%' }}>
         <SearchIconWrapper>
           <SearchIcon />
         </SearchIconWrapper>

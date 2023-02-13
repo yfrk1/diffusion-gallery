@@ -6,14 +6,16 @@ import ImageTile, { ImageItem } from './ImageTile';
 import ImagePanel from './ImagePanel';
 import useWindowDimensions from '../utils/useWindowDimensions';
 import useDetect from '../utils/useDetect';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 export default function ImageMasonry({ data, onScroll }: { onScroll: () => void, data: any[] }) {
   const { width } = useWindowDimensions();
   const { isMobile } = useDetect();
+  const padding = useMediaQuery('(min-width: 600px)') ? 24 : 16
 
   const columns = isMobile ? 4 : 8;
   const gutter = 4;
-  const columnWidth = Math.floor((width - 48 - columns * gutter) / (columns))
+  const columnWidth = Math.floor((width - padding * 2 - columns * gutter) / (columns))
 
   const masonryRef = useRef<HTMLDivElement | null>(null);
   // const masonry = useRef<any | null>(null)

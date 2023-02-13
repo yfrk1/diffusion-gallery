@@ -41,7 +41,7 @@ function App() {
       </AppBar>
       <Container maxWidth={false} sx={{ pt: 12 }}>
         <Container>
-          <Toolbar sx={{ width: "100%" }}>
+          <Toolbar>
             <SearchInput query={query} onEnter={(value) => {setQuery(value); setData([])}} />
           </Toolbar>
         </Container>

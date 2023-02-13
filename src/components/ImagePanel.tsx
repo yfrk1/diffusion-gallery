@@ -43,7 +43,7 @@ export default function ImagePanel({ item }: { item: ImageItem }) {
   const imageWidth = Math.min(width * 0.7, imageHeight * (1 / item.ratio))
   return <Box sx={{ ...style, overflowY: "scroll", outline: 'none', '& .MuiGrid-root': { maxWidth: 'none' } }}>
     <Stack direction={ isMobile ? "column-reverse" : "row" }>
-      <Grid sx={{ minWidth: '400px' }}>
+      <Grid sx={{ minWidth: { lg: '400px' } }}>
         <Item>
           <Paper sx={{ bgcolor: '#323234', padding: theme.spacing(2), boxShadow: 'none', borderRadius: '12px' }}>
             <Typography variant="caption" id="keep-mounted-modal-description" sx={{ color: grey[500] }}  >
