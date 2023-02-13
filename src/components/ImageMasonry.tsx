@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Masonry from 'react-masonry-component';
@@ -8,7 +8,7 @@ import useWindowDimensions from '../utils/useWindowDimensions';
 import useDetect from '../utils/useDetect';
 import useMediaQuery from '@mui/material/useMediaQuery';
 
-export default function ImageMasonry({ data, onScroll }: { onScroll: () => void, data: any[] }) {
+export default function ImageMasonry({ data }: { data: any[] }) {
   const { width } = useWindowDimensions();
   const { isMobile } = useDetect();
   const padding = useMediaQuery('(min-width: 600px)') ? 24 : 16
@@ -36,23 +36,6 @@ export default function ImageMasonry({ data, onScroll }: { onScroll: () => void,
     ratio: p.height / p.width,
     img: `${process.env.REACT_APP_IMAGE_SERVER_URL!}${p.image_path}`
   }));
-
-  
-  useEffect(() => {
-    const scrollListener = () => {
-      if (
-        document.scrollingElement &&
-        document.scrollingElement.scrollTop + document.scrollingElement.clientHeight >=
-        document.scrollingElement.scrollHeight
-      ) {
-        onScroll();
-      }
-    }
-    if (masonryRef.current) {
-      window.addEventListener("scroll", scrollListener);
-    }
-    return () => window.removeEventListener("scroll", scrollListener)
-  }, [onScroll]);
 
   return (
     <Box ref={masonryRef} sx={{ width: '100%', position: 'relative', minHeight: 829, }}>
