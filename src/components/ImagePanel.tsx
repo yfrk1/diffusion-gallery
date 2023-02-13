@@ -9,6 +9,8 @@ import { grey } from '@mui/material/colors';
 import SearchIcon from '@mui/icons-material/Search';
 import type { ImageItem } from './ImageTile';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import useDetect from '../utils/useDetect';
+import Stack from '@mui/material/Stack';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -33,14 +35,15 @@ const Item = styled('div')(({ theme }) => ({
 
 export default function ImagePanel({ item }: { item: ImageItem }) {
   const { width, height } = useWindowDimensions();
+  const { isMobile } = useDetect();
+
   const theme: any = useTheme();
 
-  const imageHeight = height * 0.8;
+  const imageHeight = Math.min(width * 0.7 * item.ratio, height * 0.8);
   const imageWidth = Math.min(width * 0.7, imageHeight * (1 / item.ratio))
-
-  return <Box sx={{ ...style, outline: 'none', width: imageWidth + 20 + 400, '& .MuiGrid-root': { maxWidth: 'none' } }}>
-    <Grid container sx={{ height: '100%' }} spacing={0}>
-      <Grid sx={{ width: '400px' }}>
+  return <Box sx={{ ...style, overflowY: "scroll", outline: 'none', '& .MuiGrid-root': { maxWidth: 'none' } }}>
+    <Stack direction={ isMobile ? "column-reverse" : "row" }>
+      <Grid sx={{ minWidth: '400px' }}>
         <Item>
           <Paper sx={{ bgcolor: '#323234', padding: theme.spacing(2), boxShadow: 'none', borderRadius: '12px' }}>
             <Typography variant="caption" id="keep-mounted-modal-description" sx={{ color: grey[500] }}  >
@@ -82,7 +85,7 @@ export default function ImagePanel({ item }: { item: ImageItem }) {
           </Box>
         </Item>
       </Grid>
-    </Grid>
+    </Stack>
   </Box>
 
 }

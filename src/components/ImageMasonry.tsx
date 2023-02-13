@@ -5,10 +5,15 @@ import Masonry from 'react-masonry-component';
 import ImageTile, { ImageItem } from './ImageTile';
 import ImagePanel from './ImagePanel';
 import useWindowDimensions from '../utils/useWindowDimensions';
+import useDetect from '../utils/useDetect';
 
 export default function ImageMasonry({ data, onScroll }: { onScroll: () => void, data: any[] }) {
   const { width } = useWindowDimensions();
-  const columnWidth = Math.floor(width / (8 * 5)) * 5 - 10
+  const { isMobile } = useDetect();
+
+  const columns = isMobile ? 4 : 8;
+  const gutter = 4;
+  const columnWidth = Math.floor((width - 48 - columns * gutter) / (columns))
 
   const masonryRef = useRef<HTMLDivElement | null>(null);
   // const masonry = useRef<any | null>(null)
@@ -62,7 +67,7 @@ export default function ImageMasonry({ data, onScroll }: { onScroll: () => void,
       </Modal>
       <Masonry
         // ref={masonry} 
-        options={{ itemSelector: '.grid-item', gutter: 4, transitionDuration: 0 }}
+        options={{ itemSelector: '.grid-item', gutter, transitionDuration: 0 }}
         enableResizableChildren={true}
       >
         {imageItems.map((item, index) => (
